@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class ProductResponse {
+public class ProductFetchResponse {
     private List<ProductDto> products;
     private String responseStatus;
 }

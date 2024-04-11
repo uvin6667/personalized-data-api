@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductDto> getProductsByShopper(String shopperId, String category, String brand);
+
+    ProductDto saveProduct(ProductDto productDto);
 }
