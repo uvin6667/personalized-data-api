@@ -43,14 +43,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean savePPL(PersonalisedProductList personalisedProductList) {
         try {
-            String shopperId = personalisedProductList.getShopperId();
+            String shopperId = personalisedProductList.shopperId();
             Shopper shopper = shopperRepository.findByShopperId(shopperId);
             if (shopper == null){
                 shopper = shopperRepository.save(new Shopper(shopperId));
             }
-            for (PersonalisedProductDetail personalisedProductDetail : personalisedProductList.getShelf()) {
-                com.isource.personalizeddataapi.entity.Product product = productRepository.findByProductId(personalisedProductDetail.getProductId());
-                ShelfItem shelfItem = new ShelfItem(shopper, product, personalisedProductDetail.getRelevancyScore());
+            for (PersonalisedProductDetail personalisedProductDetail : personalisedProductList.shelf()) {
+                com.isource.personalizeddataapi.entity.Product product = productRepository.findByProductId(personalisedProductDetail.productId());
+                ShelfItem shelfItem = new ShelfItem(shopper, product, personalisedProductDetail.relevancyScore());
                 shelfItemRepository.save(shelfItem);
             }
             return true;

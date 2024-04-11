@@ -1,10 +1,6 @@
 package com.isource.personalizeddataapi.model;
 
-import lombok.Data;
+public record PersonalisedProductDetail(String productId, Double relevancyScore) {
 
-@Data
-public class PersonalisedProductDetail {
 
-    private String productId;
-    private Double relevancyScore;
 }

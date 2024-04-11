@@ -37,7 +37,7 @@ public class ProductController {
         try{
             return ResponseEntity.ok(new ProductSaveResponse(productService.saveProduct(product),"Success"));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ProductSaveResponse("Failure"));
+            return ResponseEntity.internalServerError().body(new ProductSaveResponse(null,"Failure"));
         }
     }
 

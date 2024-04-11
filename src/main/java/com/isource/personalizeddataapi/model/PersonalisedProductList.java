@@ -4,9 +4,6 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class PersonalisedProductList {
+public record PersonalisedProductList (String shopperId, List<PersonalisedProductDetail> shelf){
 
-    private String shopperId;
-    private List<PersonalisedProductDetail> shelf;
 }
