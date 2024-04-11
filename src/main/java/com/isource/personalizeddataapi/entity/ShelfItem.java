@@ -2,10 +2,12 @@ package com.isource.personalizeddataapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "shelf_item")
 @Data
+@NoArgsConstructor
 public class ShelfItem {
 
     @Id
@@ -23,4 +25,10 @@ public class ShelfItem {
 
     @Column(name = "relevancy_score")
     private Double relevancyScore;
+
+    public ShelfItem(Shopper shopper, Product product, Double relevancyScore) {
+        this.shopper = shopper;
+        this.product = product;
+        this.relevancyScore = relevancyScore;
+    }
 }

@@ -1,6 +1,8 @@
 package com.isource.personalizeddataapi.controller;
 
-import com.isource.personalizeddataapi.dto.ProductDto;
+import com.isource.personalizeddataapi.model.PersonalisedProductList;
+import com.isource.personalizeddataapi.model.Product;
+import com.isource.personalizeddataapi.model.PPLSaveResponse;
 import com.isource.personalizeddataapi.model.ProductFetchResponse;
 import com.isource.personalizeddataapi.model.ProductSaveResponse;
 import com.isource.personalizeddataapi.service.ProductService;
@@ -30,12 +32,25 @@ public class ProductController {
         }
     }
 
-    @PostMapping(value = "/save")
-    public ResponseEntity<ProductSaveResponse> saveProduct(@RequestBody ProductDto productDto) {
+    @PostMapping(value = "/save-product")
+    public ResponseEntity<ProductSaveResponse> saveProduct(@RequestBody Product productDto) {
         try{
             return ResponseEntity.ok(new ProductSaveResponse(productService.saveProduct(productDto),"Success"));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(new ProductSaveResponse("Failure"));
+        }
+    }
+
+    @PostMapping(value = "/save-ppl")
+    public ResponseEntity<PPLSaveResponse> savePersonalisedProductList(@RequestBody PersonalisedProductList personalisedProductList) {
+        try{
+            if (productService.savePPL(personalisedProductList)) {
+                return ResponseEntity.ok(new PPLSaveResponse("Success"));
+            } else {
+                return ResponseEntity.internalServerError().body(new PPLSaveResponse("Failure"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(new PPLSaveResponse("Failure"));
         }
     }
 

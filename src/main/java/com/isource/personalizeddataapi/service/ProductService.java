@@ -1,11 +1,14 @@
 package com.isource.personalizeddataapi.service;
 
-import com.isource.personalizeddataapi.dto.ProductDto;
+import com.isource.personalizeddataapi.model.PersonalisedProductList;
+import com.isource.personalizeddataapi.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<ProductDto> getProductsByShopper(String shopperId, String category, String brand);
+    List<Product> getProductsByShopper(String shopperId, String category, String brand);
 
-    ProductDto saveProduct(ProductDto productDto);
+    Product saveProduct(Product productDto);
+
+    boolean savePPL(PersonalisedProductList personalisedProductList);
 }

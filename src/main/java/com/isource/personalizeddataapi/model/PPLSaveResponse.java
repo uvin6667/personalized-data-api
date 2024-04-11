@@ -3,11 +3,8 @@ package com.isource.personalizeddataapi.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
-public class ProductFetchResponse {
-    private List<Product> products;
+public class PPLSaveResponse {
     private String responseStatus;
 }
