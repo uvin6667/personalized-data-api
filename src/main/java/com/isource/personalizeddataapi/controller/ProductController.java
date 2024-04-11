@@ -19,23 +19,23 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping(value = "/getbyShopper")
+    @GetMapping(value = "/get-products")
     public ResponseEntity<ProductFetchResponse> getProductsByShopper(
             @RequestParam String shopperId,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String brand,
             @RequestParam(required = false, defaultValue = "10") Integer limit) {
         try{
-            return ResponseEntity.ok(new ProductFetchResponse(productService.getProductsByShopper(shopperId,category,brand),"Success"));
+            return ResponseEntity.ok(new ProductFetchResponse(productService.getProductsByShopper(shopperId,category,brand,limit),"Success"));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(new ProductFetchResponse(new ArrayList<>(),"Failure"));
         }
     }
 
     @PostMapping(value = "/save-product")
-    public ResponseEntity<ProductSaveResponse> saveProduct(@RequestBody Product productDto) {
+    public ResponseEntity<ProductSaveResponse> saveProduct(@RequestBody Product product) {
         try{
-            return ResponseEntity.ok(new ProductSaveResponse(productService.saveProduct(productDto),"Success"));
+            return ResponseEntity.ok(new ProductSaveResponse(productService.saveProduct(product),"Success"));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(new ProductSaveResponse("Failure"));
         }

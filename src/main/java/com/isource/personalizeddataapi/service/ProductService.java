@@ -6,7 +6,7 @@ import com.isource.personalizeddataapi.model.Product;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getProductsByShopper(String shopperId, String category, String brand);
+    List<Product> getProductsByShopper(String shopperId, String category, String brand, int limit);
 
     Product saveProduct(Product productDto);
 

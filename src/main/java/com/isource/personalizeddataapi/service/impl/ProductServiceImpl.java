@@ -31,8 +31,8 @@ public class ProductServiceImpl implements ProductService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<Product> getProductsByShopper(String shopperId, String category, String brand) {
-        return shelfItemRepository.getProductsByShopper(shopperId,category,brand);
+    public List<Product> getProductsByShopper(String shopperId, String category, String brand, int limit) {
+        return shelfItemRepository.getProductsByShopper(shopperId,category,brand,limit);
     }
 
     @Override

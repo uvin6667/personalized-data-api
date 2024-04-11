@@ -15,9 +15,11 @@ public interface ShelfItemRepository extends JpaRepository<ShelfItem,Long> {
             "WHERE si.shopper.shopperId = :shopperId " +
             "AND (:category IS NULL OR si.product.category = :category) " +
             "AND (:brand IS NULL OR si.product.brand = :brand) " +
-            "")
+            "ORDER BY si.relevancyScore DESC " +
+            "LIMIT :limitValue")
     List<Product> getProductsByShopper(
             @Param("shopperId") String shopperId,
             @Param("category") String category,
-            @Param("brand") String brand);
+            @Param("brand") String brand,
+            @Param("limitValue") int limit);
 }
