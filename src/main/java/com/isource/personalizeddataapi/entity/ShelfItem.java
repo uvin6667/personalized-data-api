@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "shelf_item")
+@Table(name = "shelf_item",indexes = @Index(name = "idx_relevancy_score",columnList = "relevancy_score"))
 @Data
 @NoArgsConstructor
 public class ShelfItem {
