@@ -6,7 +6,6 @@ import com.isource.personalizeddataapi.model.PPLSaveResponse;
 import com.isource.personalizeddataapi.model.ProductFetchResponse;
 import com.isource.personalizeddataapi.model.ProductSaveResponse;
 import com.isource.personalizeddataapi.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,11 @@ import java.util.ArrayList;
 @RequestMapping("products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService){
+        this.productService = productService;
+    }
 
     @GetMapping(value = "/get-products")
     public ResponseEntity<ProductFetchResponse> getProductsByShopper(

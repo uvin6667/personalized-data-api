@@ -10,7 +10,6 @@ import com.isource.personalizeddataapi.repository.ShelfItemRepository;
 import com.isource.personalizeddataapi.repository.ShopperRepository;
 import com.isource.personalizeddataapi.service.ProductService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,17 +17,17 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ShelfItemRepository shelfItemRepository;
+    private final ShelfItemRepository shelfItemRepository;
+    private final ProductRepository productRepository;
+    private final ShopperRepository shopperRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private ShopperRepository shopperRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    public ProductServiceImpl(ShelfItemRepository shelfItemRepository, ProductRepository productRepository, ShopperRepository shopperRepository, ModelMapper modelMapper) {
+        this.shelfItemRepository = shelfItemRepository;
+        this.productRepository = productRepository;
+        this.shopperRepository = shopperRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<Product> getProductsByShopper(String shopperId, String category, String brand, int limit) {

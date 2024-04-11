@@ -17,4 +17,5 @@ public class PersonalizedDataApiApplication {
 		return new ModelMapper();
 	}
 
+
 }
