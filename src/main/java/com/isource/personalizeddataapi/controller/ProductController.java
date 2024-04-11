@@ -6,6 +6,7 @@ import com.isource.personalizeddataapi.model.PPLSaveResponse;
 import com.isource.personalizeddataapi.model.ProductFetchResponse;
 import com.isource.personalizeddataapi.model.ProductSaveResponse;
 import com.isource.personalizeddataapi.service.ProductService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/get-products")
+    @Cacheable(value = "productCache", key = "{#shopperId, #category, #brand, #limit}")
     public ResponseEntity<ProductFetchResponse> getProductsByShopper(
             @RequestParam String shopperId,
             @RequestParam(required = false) String category,
