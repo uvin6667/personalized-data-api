@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .csrf().disable() //to avoid post request authentication failing
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/products/save-product","products/save-ppl").hasAnyRole("DBUSER")
-                        .requestMatchers("/products/get-products-ppl").hasAnyRole("DBUSER","ECOMMERCEUSER")
+                        .requestMatchers("/products/get-products").hasAnyRole("DBUSER","ECOMMERCEUSER")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
