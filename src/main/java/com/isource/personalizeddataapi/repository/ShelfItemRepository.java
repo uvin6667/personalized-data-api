@@ -1,11 +1,13 @@
 package com.isource.personalizeddataapi.repository;
 
+import com.isource.personalizeddataapi.entity.Shopper;
 import com.isource.personalizeddataapi.model.Product;
 import com.isource.personalizeddataapi.entity.ShelfItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.HashSet;
 import java.util.List;
 
 public interface ShelfItemRepository extends JpaRepository<ShelfItem,Long> {
@@ -22,4 +24,6 @@ public interface ShelfItemRepository extends JpaRepository<ShelfItem,Long> {
             @Param("category") String category,
             @Param("brand") String brand,
             @Param("limitValue") int limit);
+
+    HashSet<ShelfItem> findByShopper(Shopper shopper);
 }

@@ -12,6 +12,7 @@ import com.isource.personalizeddataapi.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -48,9 +49,11 @@ public class ProductServiceImpl implements ProductService {
                 shopper = shopperRepository.save(new Shopper(shopperId));
             }
             for (PersonalisedProductDetail personalisedProductDetail : personalisedProductList.shelf()) {
+                HashSet<ShelfItem> shelfItems = shelfItemRepository.findByShopper(shopper);
                 com.isource.personalizeddataapi.entity.Product product = productRepository.findByProductId(personalisedProductDetail.productId());
                 ShelfItem shelfItem = new ShelfItem(shopper, product, personalisedProductDetail.relevancyScore());
-                shelfItemRepository.save(shelfItem);
+                shelfItems.add(shelfItem);
+                shelfItemRepository.saveAll(shelfItems);
             }
             return true;
         } catch (Exception e){
