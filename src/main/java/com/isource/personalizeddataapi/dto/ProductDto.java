@@ -1,11 +1,12 @@
 package com.isource.personalizeddataapi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class ProductDto {
 
-    private String shopperId;
     private String productId;
     private String category;
     private String brand;
