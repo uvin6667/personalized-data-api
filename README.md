@@ -19,3 +19,7 @@ Build the Project:
 Run the Application:
 
     mvn spring-boot:run
+
+The Application is also hosted at:
+
+        54.227.91.9:8080
