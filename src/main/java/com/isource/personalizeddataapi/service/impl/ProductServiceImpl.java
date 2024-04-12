@@ -9,7 +9,6 @@ import com.isource.personalizeddataapi.repository.ProductRepository;
 import com.isource.personalizeddataapi.repository.ShelfItemRepository;
 import com.isource.personalizeddataapi.repository.ShopperRepository;
 import com.isource.personalizeddataapi.service.ProductService;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ShelfItemRepository shelfItemRepository;
