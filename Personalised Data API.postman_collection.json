@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "64f85a79-aebf-44be-9b1f-4deca043f28d",
+		"name": "Personalised Data API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13767357",
+		"_collection_link": "https://orange-firefly-682197.postman.co/workspace/My-Workspace~461c1c10-e34a-439e-8e52-cccaf931d144/collection/13767357-64f85a79-aebf-44be-9b1f-4deca043f28d?action=share&source=collection_link&creator=13767357"
+	},
+	"item": [
+		{
+			"name": "Fetch Products",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "ecommerceuser@123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "ecommerceuser",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.227.91.9:8080/products/get-products?shopperId=s-1000&category=apparel&brand=adidas",
+					"protocol": "http",
+					"host": [
+						"54",
+						"227",
+						"91",
+						"9"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"get-products"
+					],
+					"query": [
+						{
+							"key": "shopperId",
+							"value": "s-1000"
+						},
+						{
+							"key": "category",
+							"value": "apparel"
+						},
+						{
+							"key": "brand",
+							"value": "adidas"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Product",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "dbuser",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "dbuser@123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"productId\": \"DF-123456789\",\r\n\"category\": \"Apparel\",\r\n\"brand\": \"Adidas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.227.91.9:8080/products/save-product",
+					"protocol": "http",
+					"host": [
+						"54",
+						"227",
+						"91",
+						"9"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"save-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save PPL",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "dbuser",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "dbuser@123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"shopperId\": \"S-1000\",\r\n\"shelf\": [\r\n{\r\n\"productId\": \"DF-123456789\",\r\n\"relevancyScore\": 35.089209569320897\r\n},\r\n{\r\n\"productId\": \"DE-123456789\",\r\n\"relevancyScore\": 35.089209569320897\r\n},\r\n{\r\n\"productId\": \"DC-123456789\",\r\n\"relevancyScore\": 35.089209569320897\r\n}\r\n]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.227.91.9:8080/products/save-ppl",
+					"protocol": "http",
+					"host": [
+						"54",
+						"227",
+						"91",
+						"9"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"save-ppl"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
