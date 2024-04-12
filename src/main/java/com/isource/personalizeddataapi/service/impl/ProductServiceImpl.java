@@ -9,13 +9,17 @@ import com.isource.personalizeddataapi.repository.ProductRepository;
 import com.isource.personalizeddataapi.repository.ShelfItemRepository;
 import com.isource.personalizeddataapi.repository.ShopperRepository;
 import com.isource.personalizeddataapi.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ShelfItemRepository shelfItemRepository;
@@ -48,12 +52,15 @@ public class ProductServiceImpl implements ProductService {
             if (shopper == null){
                 shopper = shopperRepository.save(new Shopper(shopperId));
             }
+            HashSet<ShelfItem> shelfItems = shelfItemRepository.findByShopper(shopper);
+            List<String> productIds = shelfItems.stream().map(si -> si.getProduct().getProductId()).toList();
             for (PersonalisedProductDetail personalisedProductDetail : personalisedProductList.shelf()) {
-                HashSet<ShelfItem> shelfItems = shelfItemRepository.findByShopper(shopper);
                 com.isource.personalizeddataapi.entity.Product product = productRepository.findByProductId(personalisedProductDetail.productId());
-                ShelfItem shelfItem = new ShelfItem(shopper, product, personalisedProductDetail.relevancyScore());
-                shelfItems.add(shelfItem);
-                shelfItemRepository.saveAll(shelfItems);
+                boolean containsProduct = productIds.contains(personalisedProductDetail.productId());
+                if(!containsProduct){
+                    ShelfItem shelfItem = new ShelfItem(shopper, product, personalisedProductDetail.relevancyScore());
+                    shelfItemRepository.save(shelfItem);
+                }
             }
             return true;
         } catch (Exception e){
