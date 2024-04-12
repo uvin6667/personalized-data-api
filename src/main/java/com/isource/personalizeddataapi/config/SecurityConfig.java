@@ -43,8 +43,9 @@ public class SecurityConfig {
         http
                 .csrf().disable() //to avoid post request authentication failing
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/products/save-product","products/save-ppl").hasAnyRole("DBUSER")
+                        .requestMatchers("/products/save-product","/products/save-ppl").hasAnyRole("DBUSER")
                         .requestMatchers("/products/get-products").hasAnyRole("DBUSER","ECOMMERCEUSER")
+                        .requestMatchers("/swagger-ui.html").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
