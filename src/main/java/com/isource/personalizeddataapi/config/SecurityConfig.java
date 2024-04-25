@@ -1,20 +1,25 @@
 package com.isource.personalizeddataapi.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     public PasswordEncoder encoder(){
@@ -22,20 +27,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails dbUser = User.builder()
-                .username("dbUser")
-                .password(encoder().encode("dbuser@123"))
-                .roles("DBUSER")
-                .build();
-
-        UserDetails ecommerceUser = User.builder()
-                .username("ecommerceUser")
-                .password(encoder().encode("ecommerceuser@123"))
-                .roles("ECOMMERCEUSER")
-                .build();
-
-        return new InMemoryUserDetailsManager(dbUser,ecommerceUser);
+    public UserDetailsService userDetailsService() {
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
