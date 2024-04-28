@@ -1,46 +1,22 @@
 package com.isource.personalizeddataapi.controller;
 
-import com.isource.personalizeddataapi.model.PersonalisedProductList;
-import com.isource.personalizeddataapi.model.Product;
-import com.isource.personalizeddataapi.model.PPLSaveResponse;
-import com.isource.personalizeddataapi.model.ProductFetchResponse;
-import com.isource.personalizeddataapi.model.ProductSaveResponse;
+import com.isource.personalizeddataapi.model.*;
 import com.isource.personalizeddataapi.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @RestController
-@RequestMapping("products")
-@Tag(name = "Product Controller", description = "Handles all the Internal and External Operations")
-public class ProductController {
+@RequestMapping("internal")
+@Tag(name = "Data Team Controller", description = "Handles the Internal Operations")
+public class DataTeamController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService){
+    public DataTeamController(ProductService productService){
         this.productService = productService;
-    }
-
-    @GetMapping(value = "/get-products")
-    @Cacheable(value = "productCache", key = "{#shopperId, #category, #brand, #limit}")
-    @Operation(method = "getProductsByShopper",
-            security = { @SecurityRequirement(name = "basicAuth")},
-            description = "Fetches products of a particular shopper. Both internal and external personnel are authorized to use.")
-    public ResponseEntity<ProductFetchResponse> getProductsByShopper(
-            @RequestParam String shopperId,
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String brand,
-            @RequestParam(required = false, defaultValue = "10") Integer limit) {
-        try{
-            return ResponseEntity.ok(new ProductFetchResponse(productService.getProductsByShopper(shopperId,category,brand,limit),"Success"));
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ProductFetchResponse(new ArrayList<>(),"Failure"));
-        }
     }
 
     @PostMapping(value = "/save-product")
